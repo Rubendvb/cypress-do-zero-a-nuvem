@@ -18,28 +18,62 @@ describe('Central de atendimento ao cliente TAT', () => {
       .as('textEmail')
       .should('be.visible')
       .type('teste@gmail.com')
-
     cy.get('#open-text-area').should('be.visible').type(longText, { delay: 30 })
     cy.get('button[type="submit"]').click()
+
     cy.get('.success').should('be.visible')
   })
 
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
     cy.get('#firstName').as('textName').should('be.visible').type('Rubén')
     cy.get('#lastName').as('textLastName').should('be.visible').type('Vásquez')
-
     cy.get('#email')
       .as('textEmail')
       .should('be.visible')
       .type('teste@gmail,com')
-
     cy.get('#open-text-area').should('be.visible').type('Teste')
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
   })
 
-  it.only('campo telefone continua vazio quando preenchido com um valor não numérico', () => {
+  it('campo telefone continua vazio quando preenchido com um valor não-numérico', () => {
     cy.get('#phone').type('abcde').should('have.value', '')
+  })
+
+  it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
+    cy.get('#firstName').as('textName').should('be.visible').type('Rubén')
+    cy.get('#lastName').as('textLastName').should('be.visible').type('Vásquez')
+    cy.get('#email')
+      .as('textEmail')
+      .should('be.visible')
+      .type('teste@gmail.com')
+    cy.get('#open-text-area').should('be.visible').type('Teste')
+    cy.get('#phone-checkbox').click()
+    cy.get('button[type="submit"]').click()
+
+    cy.get('.error').should('be.visible')
+  })
+
+  it.only('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
+    cy.get('#firstName')
+      .type('Rubén')
+      .should('have.value', 'Rubén')
+      .clear()
+      .should('have.value', '')
+    cy.get('#lastName')
+      .type('Vásquez')
+      .should('have.value', 'Vásquez')
+      .clear()
+      .should('have.value', '')
+    cy.get('#email')
+      .type('teste@gmail.com')
+      .should('have.value', 'teste@gmail.com')
+      .clear()
+      .should('have.value', '')
+    cy.get('#open-text-area').type('Teste').clear().should('have.value', '')
+    cy.get('#phone').type('21999999999').clear().should('have.value', '')
+
+    cy.get('button[type="submit"]').click()
   })
 })
