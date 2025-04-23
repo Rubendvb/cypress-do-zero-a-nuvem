@@ -19,10 +19,6 @@ describe('Central de atendimento ao cliente TAT', () => {
       .should('be.visible')
       .type('teste@gmail.com')
 
-    cy.get('#phone').as('phoneField').should('be.visible').type('21999999999')
-    cy.get('@phoneField').then(($text) => {
-      console.log('$text', $text[0].value)
-    })
     cy.get('#open-text-area').should('be.visible').type(longText, { delay: 30 })
     cy.get('button[type="submit"]').click()
     cy.get('.success').should('be.visible')
@@ -41,5 +37,9 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
+  })
+
+  it.only('campo telefone continua vazio quando preenchido com um valor não numérico', () => {
+    cy.get('#phone').type('abcde').should('have.value', '')
   })
 })
