@@ -19,6 +19,6 @@ Cypress.Commands.add(
       .type(data.lastName)
     cy.get('#email').as('textEmail').should('be.visible').type(data.email)
     cy.get('#open-text-area').should('be.visible').type(longText, { delay: 30 })
-    cy.get('button[type="submit"]').click()
+    cy.contains('button', 'enviar', { matchCase: false }).click()
   }
 )

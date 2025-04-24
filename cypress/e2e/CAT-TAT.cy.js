@@ -19,7 +19,8 @@ describe('Central de atendimento ao cliente TAT', () => {
       .should('be.visible')
       .type('teste@gmail.com')
     cy.get('#open-text-area').should('be.visible').type(longText, { delay: 30 })
-    cy.get('button[type="submit"]').click()
+
+    cy.contains('button', 'enviar', { matchCase: false }).click()
 
     cy.get('.success').should('be.visible')
   })
@@ -32,7 +33,7 @@ describe('Central de atendimento ao cliente TAT', () => {
       .should('be.visible')
       .type('teste@gmail,com')
     cy.get('#open-text-area').should('be.visible').type('Teste')
-    cy.get('button[type="submit"]').click()
+    cy.contains('button', 'enviar', { matchCase: false }).click()
 
     cy.get('.error').should('be.visible')
   })
@@ -50,7 +51,7 @@ describe('Central de atendimento ao cliente TAT', () => {
       .type('teste@gmail.com')
     cy.get('#open-text-area').should('be.visible').type('Teste')
     cy.get('#phone-checkbox').click()
-    cy.get('button[type="submit"]').click()
+    cy.contains('button', 'enviar', { matchCase: false }).click()
 
     cy.get('.error').should('be.visible')
   })
@@ -74,7 +75,7 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('#open-text-area').type('Teste').clear().should('have.value', '')
     cy.get('#phone').type('21999999999').clear().should('have.value', '')
 
-    cy.get('button[type="submit"]').click()
+    cy.contains('button', 'enviar', { matchCase: false }).click()
   })
 
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', () => {
@@ -83,7 +84,7 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('.error').should('be.visible')
   })
 
-  it.only('envia o formulário com sucesso usando um comando customizado', () => {
+  it('envia o formulário com sucesso usando um comando customizado', () => {
     const data = {
       firstName: 'Rubén',
       lastName: 'Vásquez',
