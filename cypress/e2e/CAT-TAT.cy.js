@@ -149,7 +149,7 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('input[type="file"]')
       .selectFile('@sampleFile')
       .then((input) => {
-        expect(input[0].files[0].name).to.equal('example')
+        expect(input[0].files[0].name).to.equal('example.json')
       })
   })
 
