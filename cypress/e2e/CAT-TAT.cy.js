@@ -149,7 +149,7 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('input[type="file"]')
       .selectFile('@sampleFile')
       .then((input) => {
-        expect(input[0].files[0].name).to.equal('example.json')
+        expect(input[0].files[0].name).to.equal('example')
       })
   })
 
@@ -164,6 +164,6 @@ describe('Central de atendimento ao cliente TAT', () => {
       .invoke('removeAttr', 'target')
       .click()
 
-    cy.contains('h1', 'CAC TAT - Política de Privacidad').should('be.visible')
+    cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
   })
 })
