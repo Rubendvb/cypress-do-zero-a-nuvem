@@ -8,5 +8,6 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  projectId: 'twtc6m',
   // video: true,
 })
