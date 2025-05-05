@@ -7,7 +7,7 @@ Cypress.Commands.add(
       email: 'johnSnow@gmail.com',
     }
   ) => {
-    const longText = Cypress._.repeat('teste ', 10)
+    const longText = Cypress._.repeat('teste ', 5)
 
     cy.get('#firstName')
       .as('textName')
@@ -18,7 +18,8 @@ Cypress.Commands.add(
       .should('be.visible')
       .type(data.lastName)
     cy.get('#email').as('textEmail').should('be.visible').type(data.email)
-    cy.get('#open-text-area').should('be.visible').type(longText, { delay: 30 })
+    // cy.get('#open-text-area').should('be.visible').type(longText, { delay: 30 })
+    cy.get('#open-text-area').should('be.visible').type(longText)
     cy.contains('button', 'enviar', { matchCase: false }).click()
   }
 )
