@@ -25,11 +25,10 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.contains('button', 'enviar', { matchCase: false }).click()
 
     cy.get('.success').should('be.visible')
-    
-    cy.tick(3000)
-    
-    cy.get('.success').should('not.be.visible')
 
+    cy.tick(3000)
+
+    cy.get('.success').should('not.be.visible')
   })
 
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', () => {
@@ -44,9 +43,9 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.contains('button', 'enviar', { matchCase: false }).click()
 
     cy.get('.error').should('be.visible')
-    
+
     cy.tick(3000)
-    
+
     cy.get('.error').should('not.be.visible')
   })
 
@@ -67,7 +66,7 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.contains('button', 'enviar', { matchCase: false }).click()
 
     cy.get('.error').should('be.visible')
-    
+
     cy.tick(3000)
 
     cy.get('.error').should('not.be.visible')
@@ -100,7 +99,7 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('button[type="submit"]').click()
 
     cy.get('.error').should('be.visible')
-    
+
     cy.tick(3000)
 
     cy.get('.error').should('not.be.visible')
@@ -114,16 +113,15 @@ describe('Central de atendimento ao cliente TAT', () => {
         lastName: 'Vásquez',
         email: 'teste@gmail.com',
       }
-  
+
       cy.fillMandatoryFieldsAndSubmit(data)
-  
+
       cy.get('.success').should('be.visible')
-      
+
       cy.tick(3000)
-  
+
       cy.get('.success').should('not.be.visible')
     })
-    
   })
 
   it('seleciona um produto (Mentoria) por seu valor (value)', () => {
@@ -195,5 +193,29 @@ describe('Central de atendimento ao cliente TAT', () => {
       .click()
 
     cy.contains('h1', 'CAC TAT - Política de Privacidade').should('be.visible')
+  })
+
+  it('exibe e oculta as mensagens de sucesso e erro usando .invoke()', () => {
+    cy.get('.success')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Mensagem enviada com sucesso.')
+      .invoke('hide')
+      .should('not.be.visible')
+
+    cy.get('.error')
+      .should('not.be.visible')
+      .invoke('show')
+      .should('be.visible')
+      .and('contain', 'Valide os campos obrigatórios!')
+      .invoke('hide')
+      .should('not.be.visible')
+  })
+
+  it('preenche o campo da área de texto usando o comando invoke', () => {
+    const lonText = Cypress._.repeat('01234567890', 20)
+
+    cy.get('#open-text-area').invoke('val', lonText)
   })
 })
