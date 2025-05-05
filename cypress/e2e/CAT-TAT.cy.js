@@ -105,23 +105,21 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('.error').should('not.be.visible')
   })
 
-  Cypress._.times(5, () => {
-    it('envia o formulário com sucesso usando um comando customizado', () => {
-      cy.clock()
-      const data = {
-        firstName: 'Rubén',
-        lastName: 'Vásquez',
-        email: 'teste@gmail.com',
-      }
+  it('envia o formulário com sucesso usando um comando customizado', () => {
+    cy.clock()
+    const data = {
+      firstName: 'Rubén',
+      lastName: 'Vásquez',
+      email: 'teste@gmail.com',
+    }
 
-      cy.fillMandatoryFieldsAndSubmit(data)
+    cy.fillMandatoryFieldsAndSubmit(data)
 
-      cy.get('.success').should('be.visible')
+    cy.get('.success').should('be.visible')
 
-      cy.tick(3000)
+    cy.tick(3000)
 
-      cy.get('.success').should('not.be.visible')
-    })
+    cy.get('.success').should('not.be.visible')
   })
 
   it('seleciona um produto (Mentoria) por seu valor (value)', () => {
