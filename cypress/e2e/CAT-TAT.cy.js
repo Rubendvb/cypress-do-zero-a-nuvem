@@ -228,4 +228,8 @@ describe('Central de atendimento ao cliente TAT', () => {
     cy.get('@getRequest').its('statusText').should('be.equal', 'OK')
     cy.get('@getRequest').its('body').should('include', 'CAC TAT')
   })
+
+  it.only('encontra o gato escondido', () => {
+    cy.get('#cat').should('not.be.visible').invoke('show').should('be.visible')
+  })
 })
